@@ -1,0 +1,19 @@
+package com.digis01.PokeApiService.DTO;
+
+import java.util.List;
+
+
+public class PokemonResponseDTO {
+
+    private List<PokemonDTO> results;
+
+    public List<PokemonDTO> getResults() {
+        return results;
+    }
+
+    public void setResults(List<PokemonDTO> results) {
+        this.results = results;
+    }
+    
+    
+}
