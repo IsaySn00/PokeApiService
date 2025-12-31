@@ -17,7 +17,7 @@ public class PokemonRestController {
     private PokemonService pokemonService;
 
     @GetMapping()
-    public ResponseEntity GetAll(@RequestParam("page") int page) {
+    public ResponseEntity GetAll(@RequestParam(defaultValue = "1") int page) {
         Result result = new Result();
 
         try {

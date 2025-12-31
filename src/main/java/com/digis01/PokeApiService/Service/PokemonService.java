@@ -3,7 +3,9 @@ package com.digis01.PokeApiService.Service;
 import com.digis01.PokeApiService.DTO.PokemonDTO;
 import com.digis01.PokeApiService.DTO.PokemonResponseDTO;
 import com.digis01.PokeApiService.JPA.Result;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,13 +15,17 @@ public class PokemonService {
    private final RestTemplate restTemplate = new RestTemplate();
    
    private static final String URL = "https://pokeapi.co/api/v2/";
+   private static final int limit = 20;
    
-   public Result GetAll(int offset){
+   public Result GetAll(int page){
        
        Result result = new Result();
        
        try{
-           PokemonResponseDTO response = restTemplate.getForObject(URL + "pokemon?offset=" + offset + "&limit=20", PokemonResponseDTO.class);
+           
+           int offset = (page - 1) * limit;
+           
+           PokemonResponseDTO response = restTemplate.getForObject(URL + "pokemon?offset=" + offset + "&limit=" + limit, PokemonResponseDTO.class);
            
            List<PokemonDTO> pokemons = response.getResults();
            
@@ -32,7 +38,13 @@ public class PokemonService {
                pokemon.setImageUrl(imageUrl);
            }
            
-           result.object = pokemons;
+           Map<String, Object> data = new HashMap<>();
+           data.put("pokemons", pokemons);
+           data.put("page", page);
+           data.put("hasNext", response.getNext() != null);
+           data.put("hasPrevious", response.getPrevious() != null);
+           
+           result.object = data;
            result.correct = true;
            
        }catch(Exception ex){
