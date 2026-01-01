@@ -5,6 +5,7 @@ import java.util.List;
 
 public class PokemonResponseDTO {
 
+    private int count;
     private String next;
     private String previous;
     private List<PokemonDTO> results;
@@ -31,6 +32,14 @@ public class PokemonResponseDTO {
 
     public void setPrevious(String previous) {
         this.previous = previous;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
     
     

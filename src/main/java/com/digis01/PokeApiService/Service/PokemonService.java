@@ -6,6 +6,7 @@ import com.digis01.PokeApiService.JPA.Result;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -17,6 +18,7 @@ public class PokemonService {
    private static final String URL = "https://pokeapi.co/api/v2/";
    private static final int limit = 20;
    
+   @Cacheable(value = "pokemonPages", key = "#page")
    public Result GetAll(int page){
        
        Result result = new Result();
@@ -38,11 +40,21 @@ public class PokemonService {
                pokemon.setImageUrl(imageUrl);
            }
            
+           int totalPages = (int) Math.ceil((double) response.getCount() / limit);
+           
+           int windowSize = 2;
+           
+           int startPage = Math.max(1,page - windowSize);
+           int endPage = Math.min(totalPages, page + windowSize);
+           
            Map<String, Object> data = new HashMap<>();
            data.put("pokemons", pokemons);
            data.put("page", page);
            data.put("hasNext", response.getNext() != null);
            data.put("hasPrevious", response.getPrevious() != null);
+           data.put("totalPages", totalPages);
+           data.put("startPage", startPage);
+           data.put("endPage", endPage);
            
            result.object = data;
            result.correct = true;
