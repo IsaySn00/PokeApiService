@@ -6,7 +6,16 @@ public class PokemonDTO {
     private String name;
     private String url;
     private String imageUrl;
+    private String idPokemon;
 
+    public String getIdPokemon() {
+        return idPokemon;
+    }
+
+    public void setIdPokemon(String idPokemon) {
+        this.idPokemon = idPokemon;
+    }
+    
     public String getName() {
         return name;
     }
@@ -30,6 +39,5 @@ public class PokemonDTO {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-    
     
 }

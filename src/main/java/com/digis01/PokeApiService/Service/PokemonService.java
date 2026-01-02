@@ -35,6 +35,8 @@ public class PokemonService {
                String url = pokemon.getUrl();
                String id = url.replaceAll(".*/pokemon/", "").replace("/", "");
                
+               pokemon.setIdPokemon(id);
+               
                String imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png";
                
                pokemon.setImageUrl(imageUrl);
