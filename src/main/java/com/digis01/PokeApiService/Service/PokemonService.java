@@ -1,5 +1,6 @@
 package com.digis01.PokeApiService.Service;
 
+import com.digis01.PokeApiService.DTO.PokemonDetailDTO;
 import com.digis01.PokeApiService.DTO.PokemonDTO;
 import com.digis01.PokeApiService.DTO.PokemonResponseDTO;
 import com.digis01.PokeApiService.JPA.Result;
@@ -12,13 +13,13 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class PokemonService {
-
-   private final RestTemplate restTemplate = new RestTemplate();
-   
+    
+    private final RestTemplate restTemplate = new RestTemplate();
+    
    private static final String URL = "https://pokeapi.co/api/v2/";
    private static final int limit = 20;
-   
-   @Cacheable(value = "pokemonPages", key = "#page")
+
+    @Cacheable(value = "pokemonPages", key = "#page")
    public Result GetAll(int page){
        
        Result result = new Result();
@@ -34,8 +35,6 @@ public class PokemonService {
            for(PokemonDTO pokemon : pokemons){
                String url = pokemon.getUrl();
                String id = url.replaceAll(".*/pokemon/", "").replace("/", "");
-               
-               pokemon.setIdPokemon(id);
                
                String imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png";
                
@@ -69,4 +68,10 @@ public class PokemonService {
        
        return result;
    }
+    
+    public PokemonDetailDTO GetPokemonById(int Id_Pokemon){
+        String urlBase = URL + "pokemon/" + Id_Pokemon;
+      
+       return restTemplate.getForObject(urlBase, PokemonDetailDTO.class);
+    }
 }

@@ -1,10 +1,12 @@
 package com.digis01.PokeApiService.RestController;
 
+import com.digis01.PokeApiService.DTO.PokemonDetailDTO;
 import com.digis01.PokeApiService.JPA.Result;
 import com.digis01.PokeApiService.Service.PokemonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/pokemon")
 public class PokemonRestController {
-
+    
     @Autowired
     private PokemonService pokemonService;
-
+    
     @GetMapping()
     public ResponseEntity GetAll(@RequestParam(defaultValue = "1") int page) {
         Result result = new Result();
@@ -31,5 +33,23 @@ public class PokemonRestController {
             result.status = 500;
         }
         return ResponseEntity.status(result.status).body(result);
+    }
+    
+    @GetMapping("/{Id_Pokemon}")
+    public ResponseEntity GetByIdPokemon(@PathVariable("Id_Pokemon")int Id_Pokemon){
+        Result result = new Result();
+        
+        try{
+            PokemonDetailDTO pokemon = pokemonService.GetPokemonById(Id_Pokemon);
+            result.object = pokemon;
+            result.correct = true;
+            result.status = 200;
+        }catch(Exception ex){
+            result.correct = false;
+            result.errorMessage = "Error interno";
+            result.ex = ex;
+            result.status = 500;
+        }     
+      return ResponseEntity.status(result.status).body(result);
     }
 }
