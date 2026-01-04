@@ -10,19 +10,19 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 public class DataSourceConfig {
 
     @Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        
+
         dataSource.setUrl("jdbc:oracle:thin:@192.167.0.104:1521:orcl");
         dataSource.setUsername("PokeAPI25");
         dataSource.setPassword("password");
-        
+
         return dataSource;
     }
-    
+
     @Bean
-    public JdbcTemplate jdbcTemplate(DataSource dataSource){
+    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
-    
+
 }
