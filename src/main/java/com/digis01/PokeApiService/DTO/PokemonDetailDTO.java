@@ -12,10 +12,10 @@ import java.util.Map;
 public class PokemonDetailDTO {
     private int id;
     private String name;
-    private int base_experince;
+    private int base_experience;
     private int height;
     private int weight;
-    public List<PokemonHabilidadesDTO> abilities = new ArrayList<>();
+    public List<PokemonHabilidadesDTO> abilities;
     public List<PokemonTiposDTO> types = new ArrayList<>();
 //    Map<String, Object> sprites = new HashMap<>();
     public PokemonSpritesDTO sprites;
@@ -27,7 +27,7 @@ public class PokemonDetailDTO {
     public PokemonDetailDTO(int id, String name, int base_experience, int height, int weight){
         this.id = id;
         this.name = name;
-        this.base_experince = base_experience;
+        this.base_experience = base_experience;
         this.height = height;
         this.weight = weight;
 //        sprites.put("back_default", "");
@@ -44,28 +44,29 @@ public class PokemonDetailDTO {
 //        sprites.remove("showdown");
     }
 
-    public int getId_Pokemon() {
+    public int getId() {
         return id;
     }
 
-    public void setId_Pokemon(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getNombre() {
+    public String getName() {
         return name;
     }
 
-    public void setNombre(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public int getBase_experince() {
-        return base_experince;
+   
+    public int getBase_experience() {
+        return base_experience;
     }
 
-    public void setBase_experince(int base_experince) {
-        this.base_experince = base_experince;
+    public void setBase_experience(int base_experience) {
+        this.base_experience = base_experience;
     }
 
     public int getHeight() {
@@ -84,14 +85,29 @@ public class PokemonDetailDTO {
         this.weight = weight;
     }
 
-//    public Map<String, Object> getSprites() {
-//        return sprites;
-//    }
-//
-//    public void setSprites(Map<String, Object> sprites) {
-//        this.sprites = sprites;
-//    }
-    
+    public List<PokemonHabilidadesDTO> getAbilities() {
+        return abilities;
+    }
+
+    public void setAbilities(List<PokemonHabilidadesDTO> abilities) {
+        this.abilities = abilities;
+    }
+
+    public List<PokemonTiposDTO> getTypes() {
+        return types;
+    }
+
+    public void setTypes(List<PokemonTiposDTO> types) {
+        this.types = types;
+    }
+
+    public PokemonSpritesDTO getSprites() {
+        return sprites;
+    }
+
+    public void setSprites(PokemonSpritesDTO sprites) {
+        this.sprites = sprites;
+    }
     
     
 }

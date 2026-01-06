@@ -40,13 +40,12 @@ public class PokemonRestController {
         Result result = new Result();
         
         try{
-            PokemonDetailDTO pokemon = pokemonService.GetPokemonById(Id_Pokemon);
-            result.object = pokemon;
+            result.object = pokemonService.GetPokemonById(Id_Pokemon).object;
             result.correct = true;
             result.status = 200;
         }catch(Exception ex){
             result.correct = false;
-            result.errorMessage = "Error interno";
+            result.errorMessage = ex.getLocalizedMessage();
             result.ex = ex;
             result.status = 500;
         }     

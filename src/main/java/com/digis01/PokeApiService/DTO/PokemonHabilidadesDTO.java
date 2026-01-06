@@ -4,28 +4,24 @@
  */
 package com.digis01.PokeApiService.DTO;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class PokemonHabilidadesDTO {
     private boolean is_hidden;
     private int slot;
-    Map<String, String> ability = new HashMap<>();
+    private NamedApiResourceDTO ability;
+    
+    private PokemonHabilidadDetailDTO abilityDetail;
     
     public PokemonHabilidadesDTO(){
     
     }
     
-    public PokemonHabilidadesDTO(boolean is_hidden, int slot){
+    public PokemonHabilidadesDTO(boolean is_hidden, int slot, NamedApiResourceDTO ability){
         this.is_hidden = is_hidden;
         this.slot = slot;
-        ability.put("name", "");
-        ability.put("url", "");
+        this.ability = ability;
     }
 
-    public boolean isIs_hidden() {
+    public boolean getIs_hidden() {
         return is_hidden;
     }
 
@@ -41,13 +37,22 @@ public class PokemonHabilidadesDTO {
         this.slot = slot;
     }
 
-    public Map<String, String> getAbility() {
+    public NamedApiResourceDTO getAbility() {
         return ability;
     }
 
-    public void setAbility(Map<String, String> ability) {
+    public void setAbility(NamedApiResourceDTO ability) {
         this.ability = ability;
     }
+
+    public PokemonHabilidadDetailDTO getAbilityDetail() {
+        return abilityDetail;
+    }
+
+    public void setAbilityDetail(PokemonHabilidadDetailDTO abilityDetail) {
+        this.abilityDetail = abilityDetail;
+    }
+    
     
     
 }
