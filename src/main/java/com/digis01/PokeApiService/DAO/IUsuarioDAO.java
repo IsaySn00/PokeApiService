@@ -7,4 +7,5 @@ import com.digis01.PokeApiService.JPA.UsuarioJPA;
 public interface IUsuarioDAO {
 
     Result AddUsuario(UsuarioJPA usuario);
+    Result GetUsuarioById(int id);
 }
