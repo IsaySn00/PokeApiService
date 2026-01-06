@@ -51,4 +51,21 @@ public class PokemonRestController {
         }     
       return ResponseEntity.status(result.status).body(result);
     }
+    
+    @GetMapping("/buscador")
+    public ResponseEntity Buscador(@RequestParam("name")String name){
+        Result result = new Result();
+        
+        try{
+            result.object = pokemonService.Buscador(name).object;
+            result.correct = true;
+            result.status = 200;
+        }catch(Exception ex){
+            result.correct = false;
+            result.errorMessage = ex.getLocalizedMessage();
+            result.ex = ex;
+            result.status = 500;
+        }
+        return ResponseEntity.status(result.status).body(result);
+    }
 }

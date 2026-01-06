@@ -99,4 +99,30 @@ public class PokemonService {
     public PokemonHabilidadDetailDTO getHabilidadByUrl(String url) {
         return restTemplate.getForObject(url, PokemonHabilidadDetailDTO.class);
     }
+
+    public Result Buscador(String name) {
+        Result result = new Result();
+        try {
+            String urlFinal = URL + "pokemon/" + name.toLowerCase().trim();
+
+            PokemonDTO pokemon = restTemplate.getForObject(urlFinal, PokemonDTO.class);
+
+            if (pokemon != null) {
+                int id = pokemon.getId();
+                String imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png";
+
+                pokemon.setImageUrl(imageUrl);
+
+                result.object = pokemon;
+                result.correct = true;
+            }
+
+        } catch (Exception ex) {
+            result.correct = false;
+            result.errorMessage = ex.getLocalizedMessage();
+            result.ex = ex;
+        }
+
+        return result;
+    }
 }
