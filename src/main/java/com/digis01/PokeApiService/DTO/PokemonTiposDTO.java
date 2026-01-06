@@ -4,21 +4,17 @@
  */
 package com.digis01.PokeApiService.DTO;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class PokemonTiposDTO {
     private int slot;
-    Map<String, String> type = new HashMap<>();
+    private NamedApiResourceDTO type;
     
     public PokemonTiposDTO(){
     
     }
     
-    public PokemonTiposDTO(int slot){
+    public PokemonTiposDTO(int slot, NamedApiResourceDTO type){
         this.slot = slot;
-        type.put("name", "");
-        type.put("url", "");
+        this.type = type;
     }
 
     public int getSlot() {
@@ -29,14 +25,12 @@ public class PokemonTiposDTO {
         this.slot = slot;
     }
 
-    public Map<String, String> getType() {
+    public NamedApiResourceDTO getType() {
         return type;
     }
 
-    public void setType(Map<String, String> type) {
+    public void setType(NamedApiResourceDTO type) {
         this.type = type;
     }
-
-   
     
 }

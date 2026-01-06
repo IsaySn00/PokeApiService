@@ -1,19 +1,18 @@
 package com.digis01.PokeApiService.DTO;
 
-
 public class PokemonDTO {
 
+    private String id;
     private String name;
     private String url;
     private String imageUrl;
-    private String idPokemon;
 
-    public String getIdPokemon() {
-        return idPokemon;
+    public String getId() {
+        return id;
     }
 
-    public void setIdPokemon(String idPokemon) {
-        this.idPokemon = idPokemon;
+    public void setId(String id) {
+        this.id = id;
     }
     
     public String getName() {
@@ -39,5 +38,5 @@ public class PokemonDTO {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-    
+
 }
