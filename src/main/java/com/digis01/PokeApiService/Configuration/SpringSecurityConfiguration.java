@@ -26,7 +26,7 @@ public class SpringSecurityConfiguration {
     public SpringSecurityConfiguration(JwtAuthenticationFilter jwtAuthenticationFilter, UserDetailsJPAService userDetailsJPAService) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.userDetailsJPAService = userDetailsJPAService;
-
+ 
     }
 
     @Bean

@@ -8,4 +8,5 @@ public interface IUsuarioDAO {
 
     Result AddUsuario(UsuarioJPA usuario);
     Result GetUsuarioById(int id);
+    Result GetUsuarioByEmail(String email);
 }
