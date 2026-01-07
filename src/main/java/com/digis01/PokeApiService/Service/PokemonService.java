@@ -36,11 +36,12 @@ public class PokemonService {
 
             for (PokemonDTO pokemon : pokemons) {
                 String url = pokemon.getUrl();
-                String id = url.replaceAll(".*/pokemon/", "").replace("/", "");
+                int id = Integer.parseInt(url.replaceAll(".*/pokemon/", "").replace("/", ""));
 
                 String imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png";
 
                 pokemon.setImageUrl(imageUrl);
+                pokemon.setId(id);
             }
 
             int totalPages = (int) Math.ceil((double) response.getCount() / limit);
@@ -108,10 +109,12 @@ public class PokemonService {
             PokemonDTO pokemon = restTemplate.getForObject(urlFinal, PokemonDTO.class);
 
             if (pokemon != null) {
+                String url = pokemon.getUrl();
                 int id = pokemon.getId();
                 String imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png";
 
                 pokemon.setImageUrl(imageUrl);
+                pokemon.setUrl(url);
 
                 result.object = pokemon;
                 result.correct = true;
