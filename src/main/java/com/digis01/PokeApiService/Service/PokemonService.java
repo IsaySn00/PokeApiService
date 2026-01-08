@@ -36,12 +36,13 @@ public class PokemonService {
 
             for (PokemonDTO pokemon : pokemons) {
                 String url = pokemon.getUrl();
-                String id = url.replaceAll(".*/pokemon/", "").replace("/", "");
+                int id = Integer.parseInt(url.replaceAll(".*/pokemon/", "").replace("/", ""));
 
                 String imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png";
 
                 pokemon.setId(id);
                 pokemon.setImageUrl(imageUrl);
+                pokemon.setId(id);
             }
 
             int totalPages = (int) Math.ceil((double) response.getCount() / limit);
@@ -99,5 +100,33 @@ public class PokemonService {
 
     public PokemonHabilidadDetailDTO getHabilidadByUrl(String url) {
         return restTemplate.getForObject(url, PokemonHabilidadDetailDTO.class);
+    }
+
+    public Result Buscador(String name) {
+        Result result = new Result();
+        try {
+            String urlFinal = URL + "pokemon/" + name.toLowerCase().trim();
+
+            PokemonDTO pokemon = restTemplate.getForObject(urlFinal, PokemonDTO.class);
+
+            if (pokemon != null) {
+                String url = pokemon.getUrl();
+                int id = pokemon.getId();
+                String imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png";
+
+                pokemon.setImageUrl(imageUrl);
+                pokemon.setUrl(url);
+
+                result.object = pokemon;
+                result.correct = true;
+            }
+
+        } catch (Exception ex) {
+            result.correct = false;
+            result.errorMessage = ex.getLocalizedMessage();
+            result.ex = ex;
+        }
+
+        return result;
     }
 }
