@@ -10,5 +10,7 @@ public interface IUsuarioDAO {
     Result AddUsuario(UsuarioJPA usuario);
     Result GetUsuarioById(int id);
     Result GetUsuarioByEmail(String email);
+    Result GetAll();
+    Result DeleteUsuario(int id);
     Result UpdateUsuario(UsuarioUpdateDTO usuario);
 }

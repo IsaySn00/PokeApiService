@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package com.digis01.PokeApiService.RestController;
 
 import com.digis01.PokeApiService.DAO.UsuarioDAOImplementation;
@@ -6,6 +10,7 @@ import com.digis01.PokeApiService.JPA.Result;
 import com.digis01.PokeApiService.JPA.UsuarioJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -19,8 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/usuario")
 public class UsuarioRestController {
-
-    @Autowired
+    
+     @Autowired
     private UsuarioDAOImplementation usuarioDAOImplementation;
 
     @PostMapping()
@@ -43,7 +48,7 @@ public class UsuarioRestController {
 
         return ResponseEntity.status(result.status).body(result);
     }
-
+    
     @PreAuthorize("hasAuthority('ROLE_Administrador') or hasAuthority('ROLE_Usuario')")
     @GetMapping("/{id}")
     public ResponseEntity GetById(@PathVariable("id") int id) {
@@ -81,6 +86,42 @@ public class UsuarioRestController {
             result.status = 500;
         }
 
+        return ResponseEntity.status(result.status).body(result);
+    }
+    
+    @GetMapping()
+    public ResponseEntity GetAll(){
+        Result result = new Result();
+        
+        try{
+            result = usuarioDAOImplementation.GetAll();
+            result.correct = true;
+            result.status = 200;
+        
+        }catch(Exception ex){
+            result.correct = false;
+            result.errorMessage = ex.getLocalizedMessage();
+            result.ex = ex;
+            result.status = 500;
+        }
+        
+        return ResponseEntity.status(result.status).body(result);
+    }
+    
+    @DeleteMapping("/{idUsuario}")
+    public ResponseEntity DeleteUsuario(@PathVariable("idUsuario") int idUsuario){
+        Result result = new Result();
+        try{
+            result = usuarioDAOImplementation.DeleteUsuario(idUsuario);
+            result.correct = true;
+            result.status = 200;
+            
+        }catch(Exception ex){
+            result.correct = false;
+            result.errorMessage = ex.getLocalizedMessage();
+            result.ex = ex;
+            result.status = 500;
+        }
         return ResponseEntity.status(result.status).body(result);
     }
 }
