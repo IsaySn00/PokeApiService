@@ -1,5 +1,6 @@
 package com.digis01.PokeApiService.Service;
 
+import com.digis01.PokeApiService.Security.UsuarioDetails;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -19,10 +20,13 @@ public class JwtService {
     private static final String SECRET_KEY = "CjntvvFoDwVAHfVJvMM0BrVtwSGrLmwOfF0HzCjc8Yt";
 
     public String getToken(UserDetails userDetails) {
+        
+        UsuarioDetails usuario = (UsuarioDetails) userDetails;
 
-        String role = userDetails.getAuthorities().iterator().next().getAuthority();
+        String role = usuario.getAuthorities().iterator().next().getAuthority();
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", role);
+        claims.put("idUsuario", usuario.getId());
 
         return getToken(claims, userDetails);
     }
