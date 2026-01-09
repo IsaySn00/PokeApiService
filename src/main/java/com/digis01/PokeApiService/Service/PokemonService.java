@@ -40,6 +40,7 @@ public class PokemonService {
 
                 String imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png";
 
+                pokemon.setId(id);
                 pokemon.setImageUrl(imageUrl);
                 pokemon.setId(id);
             }

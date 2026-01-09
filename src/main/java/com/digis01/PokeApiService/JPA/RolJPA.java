@@ -37,5 +37,5 @@ public class RolJPA {
     public void setNombreRol(String nombreRol) {
         this.nombreRol = nombreRol;
     }  
-    
+   
 }
