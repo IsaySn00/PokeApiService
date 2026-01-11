@@ -9,7 +9,6 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class DataSourceConfig {
-
     @Bean
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
