@@ -62,4 +62,26 @@ public class FavoritoRestController {
         return ResponseEntity.status(result.status).body(result);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_Administrador') or hasAuthority('ROLE_Usuario')")
+    @GetMapping("/existe")
+    public ResponseEntity ExisteFavorito(@RequestParam int idUsuario, @RequestParam int idPokemon){
+        Result result = new Result();
+        
+        try{
+            
+            result.correct = true;
+            result.object = favoritoDAOImplementation.isFavorito(idUsuario, idPokemon).object;
+            result.status = 201;
+            
+        }catch(Exception ex){
+            result.correct = false;
+            result.errorMessage = ex.getLocalizedMessage();
+            result.ex = ex;
+            result.status = 500;
+        }
+        
+        return ResponseEntity.status(result.status).body(result);
+    }
+
+
 }
