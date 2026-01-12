@@ -126,5 +126,5 @@ public class UsuarioJPA {
     public void setRolJPA(RolJPA RolJPA) {
         this.RolJPA = RolJPA;
     }
-   
+     
 }
