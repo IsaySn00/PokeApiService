@@ -6,7 +6,9 @@ import com.digis01.PokeApiService.JPA.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,14 +66,36 @@ public class FavoritoRestController {
 
     @PreAuthorize("hasAuthority('ROLE_Administrador') or hasAuthority('ROLE_Usuario')")
     @GetMapping("/existe")
-    public ResponseEntity ExisteFavorito(@RequestParam int idUsuario, @RequestParam int idPokemon){
+    public ResponseEntity ExisteFavorito(@RequestParam int idUsuario, @RequestParam int idPokemon) {
         Result result = new Result();
-        
-        try{
-            
+
+        try {
+
             result.correct = true;
             result.object = favoritoDAOImplementation.isFavorito(idUsuario, idPokemon).object;
             result.status = 201;
+
+        } catch (Exception ex) {
+            result.correct = false;
+            result.errorMessage = ex.getLocalizedMessage();
+            result.ex = ex;
+            result.status = 500;
+        }
+
+        return ResponseEntity.status(result.status).body(result);
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_Administrador') or hasAuthority('ROLE_Usuario')")
+    @DeleteMapping("/{idFavorito}")
+    public ResponseEntity DeleteFavorito(@PathVariable("idFavorito") int idFavorito){
+        Result result = new Result();
+        
+        try{
+            favoritoDAOImplementation.DeleteFavorito(idFavorito);
+            
+            result.object = "Se ha eliminado el pokémon favorito";
+            result.correct = true;
+            result.status = 200;
             
         }catch(Exception ex){
             result.correct = false;
@@ -79,9 +103,9 @@ public class FavoritoRestController {
             result.ex = ex;
             result.status = 500;
         }
-        
         return ResponseEntity.status(result.status).body(result);
     }
+
 
 
 }

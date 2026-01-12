@@ -91,4 +91,24 @@ public class FavoritoDAOImplementation implements IFavoritoDAO {
         return result;
     }
 
+    @Override
+    @Transactional
+    public Result DeleteFavorito(int idFavorito) {
+        Result result = new Result();
+        
+        try{
+            FavoritoJPA favorito = entityManager.getReference(FavoritoJPA.class, idFavorito);
+            entityManager.remove(favorito);
+            
+            result.correct = true;
+            
+        }catch(Exception ex){
+            result.correct = false;
+            result.errorMessage = ex.getLocalizedMessage();
+            result.ex = ex;
+        }
+        
+        return result;
+    }
+
 }
