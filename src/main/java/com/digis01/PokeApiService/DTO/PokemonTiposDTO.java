@@ -8,6 +8,8 @@ public class PokemonTiposDTO {
     private int slot;
     private NamedApiResourceDTO type;
     
+    public PokemonTipoDetailDTO tipoDetail;
+    
     public PokemonTiposDTO(){
     
     }
@@ -32,5 +34,15 @@ public class PokemonTiposDTO {
     public void setType(NamedApiResourceDTO type) {
         this.type = type;
     }
+
+    public PokemonTipoDetailDTO getTipoDetail() {
+        return tipoDetail;
+    }
+
+    public void setTipoDetail(PokemonTipoDetailDTO tipoDetail) {
+        this.tipoDetail = tipoDetail;
+    }
+    
+    
     
 }

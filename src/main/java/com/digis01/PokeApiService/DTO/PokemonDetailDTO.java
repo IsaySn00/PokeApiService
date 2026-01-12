@@ -10,21 +10,31 @@ import java.util.List;
 import java.util.Map;
 
 public class PokemonDetailDTO {
+
     private int id;
     private String name;
     private int base_experience;
     private int height;
     private int weight;
+    private double heightMeters;
+    private double weightKg;
+    private String description;
+    private String primaryType;
+    private String primaryColor;
+    private List<PokemonTipoEffectDTO> fortalezas;
+    private List<PokemonTipoEffectDTO> debilidades;
     public List<PokemonHabilidadesDTO> abilities;
-    public List<PokemonTiposDTO> types = new ArrayList<>();
+    public List<PokemonTiposDTO> types;
+    public List<PokemonBaseStatDTO> stats;
+    public List<PokemonEvolucionDTO> evoluciones;
 //    Map<String, Object> sprites = new HashMap<>();
     public PokemonSpritesDTO sprites;
-    
-    public PokemonDetailDTO(){
-    
+
+    public PokemonDetailDTO() {
+
     }
-    
-    public PokemonDetailDTO(int id, String name, int base_experience, int height, int weight){
+
+    public PokemonDetailDTO(int id, String name, int base_experience, int height, int weight) {
         this.id = id;
         this.name = name;
         this.base_experience = base_experience;
@@ -60,7 +70,6 @@ public class PokemonDetailDTO {
         this.name = name;
     }
 
-   
     public int getBase_experience() {
         return base_experience;
     }
@@ -85,6 +94,48 @@ public class PokemonDetailDTO {
         this.weight = weight;
     }
 
+    public double getHeightMeters() {
+        return heightMeters;
+    }
+
+    public void setHeightMeters(double heightMeters) {
+        this.heightMeters = heightMeters;
+    }
+
+    public double getWeightKg() {
+        return weightKg;
+    }
+
+    public void setWeightKg(double weightKg) {
+        this.weightKg = weightKg;
+    }
+    
+    
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<PokemonTipoEffectDTO> getFortalezas() {
+        return fortalezas;
+    }
+
+    public void setFortalezas(List<PokemonTipoEffectDTO> fortalezas) {
+        this.fortalezas = fortalezas;
+    }
+
+    public List<PokemonTipoEffectDTO> getDebilidades() {
+        return debilidades;
+    }
+
+    public void setDebilidades(List<PokemonTipoEffectDTO> debilidades) {
+        this.debilidades = debilidades;
+    }
+
     public List<PokemonHabilidadesDTO> getAbilities() {
         return abilities;
     }
@@ -101,6 +152,14 @@ public class PokemonDetailDTO {
         this.types = types;
     }
 
+    public List<PokemonEvolucionDTO> getEvoluciones() {
+        return evoluciones;
+    }
+
+    public void setEvoluciones(List<PokemonEvolucionDTO> evoluciones) {
+        this.evoluciones = evoluciones;
+    }
+
     public PokemonSpritesDTO getSprites() {
         return sprites;
     }
@@ -108,6 +167,23 @@ public class PokemonDetailDTO {
     public void setSprites(PokemonSpritesDTO sprites) {
         this.sprites = sprites;
     }
+
+    public String getPrimaryType() {
+        return primaryType;
+    }
+
+    public void setPrimaryType(String primaryType) {
+        this.primaryType = primaryType;
+    }
+
+    public String getPrimaryColor() {
+        return primaryColor;
+    }
+
+    public void setPrimaryColor(String primaryColor) {
+        this.primaryColor = primaryColor;
+    }
+
     
     
 }
