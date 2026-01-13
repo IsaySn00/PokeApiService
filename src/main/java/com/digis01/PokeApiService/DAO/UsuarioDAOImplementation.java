@@ -156,4 +156,24 @@ public class UsuarioDAOImplementation implements IUsuarioDAO {
         
         return result;
     }
+
+    @Override
+    @Transactional
+    public Result UpdatePassword(String email, String password) {
+        Result result = new Result();
+        
+        try{
+            String jpql = "UPDATE UsuarioJPA SET passwordUsuario = :password WHERE emailUsuario = :email";
+            entityManager.createQuery(jpql).setParameter("password",passwordEncoder.encode(password))
+                    .setParameter("email", email).executeUpdate();
+            
+            result.correct = true;
+            
+        }catch(Exception ex){
+            result.correct = false;
+            result.errorMessage = ex.getLocalizedMessage();
+            result.ex = ex;
+        }
+        return result;
+    }
 }

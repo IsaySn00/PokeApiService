@@ -70,7 +70,7 @@ public class JwtService {
 
     public String generateRecoveryToken(String email) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("role", "ROLE_invitado");
+        claims.put("role", "ROLE_Invitado");
         claims.put("type", "password_recovery");
 
         return Jwts.builder()

@@ -44,6 +44,7 @@ public class SpringSecurityConfiguration {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(configurer -> configurer
                 .requestMatchers("/api/auth/login").permitAll()
+                .requestMatchers("/api/usuario/sendEmailRecuperacionPass").permitAll()
                 .anyRequest().authenticated()
                 )
                 .userDetailsService(userDetailsJPAService)
