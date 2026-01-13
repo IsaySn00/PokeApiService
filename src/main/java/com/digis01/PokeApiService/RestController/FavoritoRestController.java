@@ -86,12 +86,12 @@ public class FavoritoRestController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_Administrador') or hasAuthority('ROLE_Usuario')")
-    @DeleteMapping("/{idFavorito}")
-    public ResponseEntity DeleteFavorito(@PathVariable("idFavorito") int idFavorito){
+    @DeleteMapping()
+    public ResponseEntity DeleteFavorito(@RequestParam int idUsuario, @RequestParam int idPokemon){
         Result result = new Result();
         
         try{
-            favoritoDAOImplementation.DeleteFavorito(idFavorito);
+            favoritoDAOImplementation.DeleteFavorito(idUsuario, idPokemon);
             
             result.object = "Se ha eliminado el pokémon favorito";
             result.correct = true;

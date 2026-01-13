@@ -93,12 +93,17 @@ public class FavoritoDAOImplementation implements IFavoritoDAO {
 
     @Override
     @Transactional
-    public Result DeleteFavorito(int idFavorito) {
+    public Result DeleteFavorito(int idUsuario, int idPokemon) {
         Result result = new Result();
         
         try{
-            FavoritoJPA favorito = entityManager.getReference(FavoritoJPA.class, idFavorito);
-            entityManager.remove(favorito);
+            
+            entityManager.createQuery(
+                    "DELETE FROM FavoritoJPA f WHERE f.UsuarioJPA.idUsuario = :idUsuario AND f.idPokemon = :idPokemon")
+                    .setParameter("idUsuario", idUsuario)
+                    .setParameter("idPokemon", idPokemon)
+                    .executeUpdate();
+            
             
             result.correct = true;
             

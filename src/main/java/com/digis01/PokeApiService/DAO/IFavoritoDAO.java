@@ -9,5 +9,5 @@ public interface IFavoritoDAO {
     Result AddFavorito(FavoritoJPA favorito, int idUsuario);
     Result GetFavoritoById(int id);
     Result isFavorito(int idUsuario, int idPokemon);
-    Result DeleteFavorito(int idFavorito);
+    Result DeleteFavorito(int idUsuario, int idPokemon);
 }
