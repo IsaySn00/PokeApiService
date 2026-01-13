@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.digis01.PokeApiService.JPA;
+package com.digis01.PokeApiService.DTO;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.CascadeType;
+import com.digis01.PokeApiService.JPA.RolJPA;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,52 +8,39 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name = "usuario")
-public class UsuarioJPA {
-   @Id
+@Table(name = "Usuario")
+public class UsuarioUpdateDTO {
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
     private int idUsuario;
-    
+
     @Column(name = "nombre_usuario")
     private String nombreUsuario;
-    
+
     @Column(name = "apellido_paterno")
     private String apellidoPatUsuario;
-    
+
     @Column(name = "apellido_materno")
     private String apellidoMatUsuario;
-    
+
     @Column(name = "username")
     private String userName;
-    
+
     @Column(name = "telefono")
     private String telefonoUsuario;
-    
+
     @Column(name = "email")
     private String emailUsuario;
-    
-    @Column(name = "password")
-    private String passwordUsuario;
-    
-    @OneToMany(mappedBy = "UsuarioJPA", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonProperty("favoritos")
-    public List<FavoritoJPA> FavoritoJPA = new ArrayList<>();
-    
+
     @ManyToOne()
     @JoinColumn(name = "id_rol", nullable = false)
     public RolJPA RolJPA;
 
-    public UsuarioJPA(){
-    
-    }
-    
     public int getIdUsuario() {
         return idUsuario;
     }
@@ -115,14 +97,6 @@ public class UsuarioJPA {
         this.emailUsuario = emailUsuario;
     }
 
-    public String getPasswordUsuario() {
-        return passwordUsuario;
-    }
-
-    public void setPasswordUsuario(String passwordUsuario) {
-        this.passwordUsuario = passwordUsuario;
-    }
-
     public RolJPA getRolJPA() {
         return RolJPA;
     }
@@ -130,5 +104,4 @@ public class UsuarioJPA {
     public void setRolJPA(RolJPA RolJPA) {
         this.RolJPA = RolJPA;
     }
-     
 }

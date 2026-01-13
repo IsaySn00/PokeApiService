@@ -3,7 +3,7 @@ package com.digis01.PokeApiService.DTO;
 public class NamesDTO {
     
     private String name;
-    public NamedApiResourceDTO Language;
+    public NamedApiResourceDTO language;
 
     public String getName() {
         return name;
@@ -14,11 +14,11 @@ public class NamesDTO {
     }
 
     public NamedApiResourceDTO getLanguage() {
-        return Language;
+        return language;
     }
 
     public void setLanguage(NamedApiResourceDTO Language) {
-        this.Language = Language;
+        this.language = Language;
     }
     
     
