@@ -10,7 +10,11 @@ import com.digis01.PokeApiService.JPA.Result;
 import com.digis01.PokeApiService.JPA.UsuarioJPA;
 import com.digis01.PokeApiService.Service.EmailService;
 import com.digis01.PokeApiService.Service.JwtService;
+import com.digis01.PokeApiService.Service.UserDetailsJPAService;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -38,6 +42,9 @@ public class UsuarioRestController {
 
     @Autowired
     private EmailService emailService;
+    
+    @Autowired
+    private UserDetailsJPAService userDetailsJPAService;
 
     @PostMapping()
     public ResponseEntity AddUsuario(@RequestBody UsuarioJPA usuario) {
@@ -187,6 +194,29 @@ public class UsuarioRestController {
             result.object = "Error al recuperar contraseña";
         }
 
+        return ResponseEntity.status(result.status).body(result);
+    }
+    
+    @PostMapping("/validarPassword")
+    public ResponseEntity ValidarPassword(@RequestBody Map<String, String> body){
+        Result result = new Result();
+        try{
+            String password = body.get("password");
+            boolean isValida = userDetailsJPAService.ValidarPassword(password);
+            
+            if(isValida){
+                return ResponseEntity.ok().body(Map.of("valid",true));
+            }else{
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("valid", false,
+                                           "message", "Contraseña incorrecta"));
+            }
+        
+        }catch(Exception ex){
+            result.correct = false;
+            result.errorMessage = ex.getLocalizedMessage();
+            result.status = 500;
+        }
+        
         return ResponseEntity.status(result.status).body(result);
     }
 }
