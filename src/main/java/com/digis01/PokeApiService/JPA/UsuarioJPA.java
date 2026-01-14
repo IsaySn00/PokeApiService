@@ -55,6 +55,10 @@ public class UsuarioJPA {
     @JoinColumn(name = "id_rol", nullable = false)
     public RolJPA RolJPA;
 
+    public UsuarioJPA(){
+    
+    }
+    
     public int getIdUsuario() {
         return idUsuario;
     }
@@ -126,5 +130,5 @@ public class UsuarioJPA {
     public void setRolJPA(RolJPA RolJPA) {
         this.RolJPA = RolJPA;
     }
-   
+     
 }

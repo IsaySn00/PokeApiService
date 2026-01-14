@@ -5,6 +5,7 @@
 package com.digis01.PokeApiService.DAO;
 
 import com.digis01.PokeApiService.DTO.UsuarioUpdateDTO;
+import com.digis01.PokeApiService.JPA.FavoritoJPA;
 import com.digis01.PokeApiService.JPA.Result;
 import com.digis01.PokeApiService.JPA.UsuarioJPA;
 import jakarta.persistence.EntityManager;

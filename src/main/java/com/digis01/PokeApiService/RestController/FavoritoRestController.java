@@ -106,6 +106,5 @@ public class FavoritoRestController {
         return ResponseEntity.status(result.status).body(result);
     }
 
-
-
+    
 }
