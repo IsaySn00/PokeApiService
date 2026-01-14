@@ -6,16 +6,22 @@ package com.digis01.PokeApiService.RestController;
 
 import com.digis01.PokeApiService.DAO.UsuarioDAOImplementation;
 import com.digis01.PokeApiService.DTO.UsuarioUpdateDTO;
+import com.digis01.PokeApiService.JPA.ErrorCarga;
 import com.digis01.PokeApiService.JPA.Result;
 import com.digis01.PokeApiService.JPA.UsuarioJPA;
 import com.digis01.PokeApiService.Service.EmailService;
 import com.digis01.PokeApiService.Service.JwtService;
+import jakarta.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,10 +45,31 @@ public class UsuarioRestController {
     @Autowired
     private EmailService emailService;
 
-    @PostMapping()
-    public ResponseEntity AddUsuario(@RequestBody UsuarioJPA usuario) {
+    @PostMapping("/add")
+    public ResponseEntity AddUsuario(@Valid @RequestBody UsuarioJPA usuario, BindingResult bindingResult) {
 
         Result result = new Result();
+        
+        if (bindingResult.hasErrors()) {
+
+            List<ErrorCarga> listaError = new ArrayList<>();
+
+            for (FieldError errorCampo : bindingResult.getFieldErrors()) {
+
+                ErrorCarga error = new ErrorCarga();
+
+                error.setCampo(errorCampo.getField());
+                error.setDescripcion(errorCampo.getDefaultMessage());
+
+                listaError.add(error);
+            }
+
+            result.object = listaError;
+            result.status = 422;
+            result.errorMessage = "Datos Invalidos";
+
+            return ResponseEntity.status(result.status).body(result);
+        }
 
         try {
             result = usuarioDAOImplementation.AddUsuario(usuario);
@@ -81,8 +108,29 @@ public class UsuarioRestController {
 
     @PreAuthorize("hasAuthority('ROLE_Administrador') or hasAuthority('ROLE_Usuario')")
     @PatchMapping()
-    public ResponseEntity UpdateUsuario(@RequestBody UsuarioUpdateDTO usuario) {
+    public ResponseEntity UpdateUsuario(@Valid @RequestBody UsuarioUpdateDTO usuario, BindingResult bindingResult) {
         Result result = new Result();
+        
+        if (bindingResult.hasErrors()) {
+
+            List<ErrorCarga> listaError = new ArrayList<>();
+
+            for (FieldError errorCampo : bindingResult.getFieldErrors()) {
+
+                ErrorCarga error = new ErrorCarga();
+
+                error.setCampo(errorCampo.getField());
+                error.setDescripcion(errorCampo.getDefaultMessage());
+
+                listaError.add(error);
+            }
+
+            result.object = listaError;
+            result.status = 422;
+            result.errorMessage = "Datos Invalidos";
+
+            return ResponseEntity.status(result.status).body(result);
+        }
 
         try {
             usuarioDAOImplementation.UpdateUsuario(usuario);
