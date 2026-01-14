@@ -151,7 +151,7 @@ public class UsuarioRestController {
         try {
             String tkn = jwtService.generateRecoveryToken(email);
 
-            String link = "http://localhost:8081/usuario/recuperacionContrasenia?token=" + tkn;
+            String link = "http://localhost:8081/usuario/recuperarPassword?token=" + tkn;
 
             emailService.sendMail(email, link, "Recuperación de contraseña");
 

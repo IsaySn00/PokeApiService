@@ -55,6 +55,10 @@ public class UsuarioJPA {
     @JoinColumn(name = "id_rol", nullable = false)
     public RolJPA RolJPA;
 
+    public UsuarioJPA(){
+    
+    }
+    
     public int getIdUsuario() {
         return idUsuario;
     }

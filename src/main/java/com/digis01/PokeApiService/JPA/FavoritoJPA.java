@@ -22,7 +22,7 @@ public class FavoritoJPA {
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
-    @JoinColumn(name = "id_usuario")
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     public UsuarioJPA UsuarioJPA;
     
     @Column(name = "id_pokemon")
