@@ -6,9 +6,11 @@ public class PokemonTipoDetailDTO {
     
     private int id;
     private String name;
+    private String originalName;
     public List<NamesDTO> names;
     private DamageRelationsDTO damage_relations;
     private String color;
+    private List<ResourceEntryDTO> pokemon;
 
     public int getId() {
         return id;
@@ -24,6 +26,14 @@ public class PokemonTipoDetailDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getOriginalName() {
+        return originalName;
+    }
+
+    public void setOriginalName(String originalName) {
+        this.originalName = originalName;
     }
 
     public List<NamesDTO> getNames() {
@@ -49,6 +59,15 @@ public class PokemonTipoDetailDTO {
     public void setColor(String color) {
         this.color = color;
     }
+
+    public List<ResourceEntryDTO> getPokemon() {
+        return pokemon;
+    }
+
+    public void setPokemon(List<ResourceEntryDTO> pokemon) {
+        this.pokemon = pokemon;
+    }
+    
     
     
 }

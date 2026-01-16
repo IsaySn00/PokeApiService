@@ -55,6 +55,45 @@ public class PokemonRestController {
         return ResponseEntity.status(result.status).body(result);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_Administrador') or hasAuthority('ROLE_Usuario')")
+    @GetMapping("/tipos")
+    public ResponseEntity GetAllTipos() {
+        Result result = new Result();
+
+        try {
+            result.object = pokemonService.GetTypes().object;
+            result.correct = true;
+            result.status = 201;
+
+        } catch (Exception ex) {
+            result.correct = false;
+            result.errorMessage = ex.getLocalizedMessage();
+            result.status = 500;
+            result.ex = ex;
+        }
+        return ResponseEntity.status(result.status).body(result);
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_Administrador') or hasAuthority('ROLE_Usuario')")
+    @GetMapping("/tipo")
+    public ResponseEntity GetPokemonByType(@RequestParam int idType){
+        Result result = new Result();
+        
+        try{
+            result.object = pokemonService.GetPokemonByType(idType).object;
+            result.correct = true;
+            result.status = 201;
+            
+        }catch(Exception ex){
+            result.correct = false;
+            result.errorMessage = ex.getLocalizedMessage();
+            result.ex = ex;
+            result.status = 500;
+        }
+        return ResponseEntity.status(result.status).body(result);
+    }
+    
+    @PreAuthorize("hasAuthority('ROLE_Administrador') or hasAuthority('ROLE_Usuario')")
     @GetMapping("/buscador")
     public ResponseEntity Buscador(@RequestParam("name") String name) {
         Result result = new Result();
@@ -71,4 +110,5 @@ public class PokemonRestController {
         }
         return ResponseEntity.status(result.status).body(result);
     }
+
 }
